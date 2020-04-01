@@ -1,0 +1,19 @@
+import requests
+import csv
+from bs4 import BeautifulSoup
+import time
+with open('rates.csv','w') as rates:
+    rates.write("Date,Rate\n")
+for m in range(8,12):
+    for d in range(15,32):
+        try:
+            response=request.get('https://www.trivago.in/?aDateRange%5Barr%5D=2020-04-14&aDateRange%5Bdep%5D=2020-04-15&aPriceRange%5Bfrom%5D=0&aPriceRange%5Bto%5D=12074&iRoomType=1&aRooms%5B0%5D%5Badults%5D=1&cpt2=420690%2F200&hasList=1&hasMap=0&bIsSeoPage=0&sortingId=2&slideoutsPageItemId=&iGeoDistanceLimit=20000&address=&addressGeoCode=&offset=0&ra=')
+            if response.ok:
+    soup=BeautifulSoup(response.text)
+        except Exception e:
+            print e
+            time.sleep(.2)
+        king=soup.find("table", {"summary":"rooms availiability"}).find("div","room")
+        if king.find("div","comfort-room").text.strip()=="King":
+            rate=king.find("div","roomAvail").find("div","value").strip() 
+            rates.write("2020"+str(m)+"-"+str(d)+","+str(rate)+"\n")
