@@ -1,0 +1,6 @@
+def check_profanity(text_to_check):
+    Word_db = ["bad","shit"]
+    if set(Word_db).intersection(set(text_to_check.split())):
+        print("Profanity Alert!!")
+    else:
+        print("This document has no curse words.")
